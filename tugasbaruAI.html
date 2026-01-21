@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlueTravel - Hotel & Penerbangan</title>
+    
+    <!-- Bootstrap 5 CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome untuk Ikon -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Tema Warna: Putih dan Biru */
+            --primary-blue: #0d6efd;
+            --dark-blue: #0043a8;
+            --light-blue: #e7f1ff;
+            --text-dark: #2c3e50;
+            --text-light: #6c757d;
+            --white: #ffffff;
+            --bg-light: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            background-color: var(--white);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            padding: 15px 0;
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            color: var(--primary-blue) !important;
+            font-size: 1.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        .navbar-brand i {
+            color: var(--dark-blue);
+        }
+
+        .nav-link {
+            color: var(--text-dark);
+            font-weight: 600;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary-blue);
+        }
+
+        .btn-nav {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            border-radius: 8px;
+            padding: 8px 20px;
+            font-weight: 600;
+        }
+
+        .btn-nav:hover {
+            background-color: var(--dark-blue);
+            color: var(--white);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.9)), url('https://picsum.photos/seed/travelblue/1920/1080');
+            background-size: cover;
+            background-position: center;
+            padding: 120px 0 200px 0; /* Extra bottom padding for overlap */
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-weight: 800;
+            font-size: 3rem;
+            color: var(--dark-blue);
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Search Widget Box */
+        .search-container {
+            margin-top: -100px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .search-card {
+            background: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 86, 179, 0.1);
+            overflow: hidden;
+            padding: 30px;
+            border: 1px solid rgba(13, 110, 253, 0.1);
+        }
+
+        /* Custom Tabs */
+        .nav-tabs-search {
+            border-bottom: none;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .nav-tabs-search .nav-link {
+            border: 2px solid #e9ecef;
+            border-radius: 50px;
+            padding: 10px 30px;
+            color: var(--text-light);
+            font-weight: 700;
+            margin-bottom: 0;
+            transition: all 0.3s;
+        }
+
+        .nav-tabs-search .nav-link:hover {
+            border-color: var(--primary-blue);
+            color: var(--primary-blue);
+        }
+
+        .nav-tabs-search .nav-link.active {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            border-color: var(--primary-blue);
+            box-shadow: 0 4px 10px rgba(13, 110, 253, 0.3);
+        }
+
+        .nav-tabs-search .nav-link i {
+            margin-right: 8px;
+        }
+
+        /* Form Styling */
+        .form-label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 5px;
+        }
+
+        .form-control, .form-select {
+            border: 1px solid #ced4da;
+            padding: 12px;
+            border-radius: 8px;
+            background-color: #fdfdfd;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15);
+        }
+
+        .btn-search {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            font-weight: 700;
+            padding: 14px;
+            border-radius: 8px;
+            border: none;
+            width: 100%;
+            height: 100%;
+            transition: background 0.3s;
+        }
+
+        .btn-search:hover {
+            background-color: var(--dark-blue);
+        }
+
+        /* Section Styling */
+        .section-padding {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-weight: 800;
+            color: var(--dark-blue);
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            color: var(--text-light);
+        }
+
+        /* Destination Cards */
+        .card-destination {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+            background: var(--white);
+        }
+
+        .card-destination:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .card-img-wrapper {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .card-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .card-destination:hover .card-img-wrapper img {
+            transform: scale(1.1);
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--white);
+            color: var(--primary-blue);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* Hotel Cards */
+        .hotel-card {
+            border: none;
+            border-radius: 15px;
+            background: var(--white);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .hotel-img {
+            border-radius: 10px;
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+
+        .hotel-rating {
+            color: #ffc107;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .hotel-price {
+            color: var(--primary-blue);
+            font-weight: 800;
+            font-size: 1.2rem;
+        }
+
+        .hotel-price span {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            font-weight: 400;
+        }
+
+        .btn-outline-blue {
+            color: var(--primary-blue);
+            border: 2px solid var(--primary-blue);
+            border-radius: 8px;
+            font-weight: 600;
+            padding: 8px 15px;
+            width: 100%;
+            margin-top: auto;
+        }
+
+        .btn-outline-blue:hover {
+            background-color: var(--primary-blue);
+            color: var(--white);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--white);
+            border-top: 1px solid #e9ecef;
+            padding: 60px 0 20px;
+        }
+
+        .footer-logo {
+            font-weight: 800;
+            color: var(--primary-blue);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-blue);
+        }
+
+        .social-links a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background: var(--light-blue);
+            color: var(--primary-blue);
+            border-radius: 50%;
+            margin-right: 10px;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--primary-blue);
+            color: var(--white);
+        }
+
+        /* Utilities */
+        .bg-blue-light {
+            background-color: var(--light-blue);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .search-container { margin-top: -50px; padding: 0 15px; }
+            .nav-tabs-search .nav-link { padding: 8px 15px; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#"><i class="fas fa-plane-departure me-2"></i>BlueTravel</a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link active" href="#">Beranda</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#destinations">Destinasi</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#hotels">Hotel</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#promo">Promo</a></li>
+                </ul>
+                <div class="d-flex ms-lg-3">
+                    <a href="#" class="btn btn-nav">Daftar / Masuk</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="container">
+            <h1>Jelajahi Dunia dengan Nyaman</h1>
+            <p>Temukan penerbangan dan hotel impian Anda dengan harga terbaik dalam satu platform.</p>
+        </div>
+    </header>
+
+    <!-- Search Widget (Tabbed) -->
+    <div class="container search-container">
+        <div class="search-card">
+            <!-- Tabs Navigation -->
+            <ul class="nav nav-tabs-search" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="hotel-tab" data-bs-toggle="tab" data-bs-target="#hotel" type="button" role="tab">
+                        <i class="fas fa-hotel"></i> Cari Hotel
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="flight-tab" data-bs-toggle="tab" data-bs-target="#flight" type="button" role="tab">
+                        <i class="fas fa-plane"></i> Cari Penerbangan
+                    </button>
+                </li>
+            </ul>
+
+            <!-- Tab Content -->
+            <div class="tab-content" id="myTabContent">
+                
+                <!-- Search Form: Hotel -->
+                <div class="tab-pane fade show active" id="hotel" role="tabpanel">
+                    <form onsubmit="event.preventDefault(); alert('Mencari Hotel...');">
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label class="form-label">Lokasi / Nama Hotel</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white"><i class="fas fa-map-marker-alt text-primary"></i></span>
+                                    <input type="text" class="form-control" placeholder="Mau ke mana?">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Check-in</label>
+                                <input type="date" class="form-control">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Check-out</label>
+                                <input type="date" class="form-control">
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Tamu & Kamar</label>
+                                <select class="form-select">
+                                    <option selected>2 Dewasa, 1 Kamar</option>
+                                    <option>1 Dewasa</option>
+                                    <option>Keluarga</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-search"><i class="fas fa-search me-2"></i> Cari Hotel Sekarang</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Search Form: Flight -->
+                <div class="tab-pane fade" id="flight" role="tabpanel">
+                    <form onsubmit="event.preventDefault(); alert('Mencari Tiket...');">
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label class="form-label">Dari</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white"><i class="fas fa-plane-departure text-primary"></i></span>
+                                    <input type="text" class="form-control" value="Jakarta (CGK)">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Ke</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white"><i class="fas fa-plane-arrival text-primary"></i></span>
+                                    <input type="text" class="form-control" placeholder="Bali, Singapura, dll.">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Tanggal Pergi</label>
+                                <input type="date" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-search"><i class="fas fa-search me-2"></i> Cari Penerbangan Sekarang</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Destinations Section -->
+    <section id="destinations" class="section-padding">
+        <div class="container">
+            <div class="section-title">
+                <h2>Destinasi Populer</h2>
+                <p>Pilihan liburan terbaik yang paling diminati wisatawan.</p>
+            </div>
+            
+            <div class="row g-4">
+                <!-- Item 1 -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="card-destination">
+                        <div class="card-img-wrapper">
+                            <span class="card-badge">Wisata Alam</span>
+                            <img src="bali.jpg" class="img-fluid" alt="Bali">
+                        </div>
+                        <div class="card-body p-4">
+                            <h5 class="fw-bold">Bali, Indonesia</h5>
+                            <p class="text-muted small mb-3">Nikmati keindahan pantai dan budaya yang memukau di pulau dewata.</p>
+                            <a href="#" class="text-primary text-decoration-none fw-bold">Lihat Paket Tour <i class="fas fa-arrow-right ms-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="card-destination">
+                        <div class="card-img-wrapper">
+                            <span class="card-badge">Kota Modern</span>
+                            <img src="tokyo.jpg" class="img-fluid" alt="Tokyo">
+                        </div>
+                        <div class="card-body p-4">
+                            <h5 class="fw-bold">Tokyo, Jepang</h5>
+                            <p class="text-muted small mb-3">Perpaduan sempurna antara teknologi masa depan dan tradisi kuno.</p>
+                            <a href="#" class="text-primary text-decoration-none fw-bold">Lihat Paket Tour <i class="fas fa-arrow-right ms-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="card-destination">
+                        <div class="card-img-wrapper">
+                            <span class="card-badge">Sejarah</span>
+                            <img src="paris.jpg" class="img-fluid" alt="Paris">
+                        </div>
+                        <div class="card-body p-4">
+                            <h5 class="fw-bold">Paris, Prancis</h5>
+                            <p class="text-muted small mb-3">Kota cinta dengan ikon menara Eiffel yang legendaris dan museum seni.</p>
+                            <a href="#" class="text-primary text-decoration-none fw-bold">Lihat Paket Tour <i class="fas fa-arrow-right ms-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hotels Section -->
+    <section id="hotels" class="section-padding bg-blue-light">
+        <div class="container">
+            <div class="section-title">
+                <h2>Rekomendasi Hotel</h2>
+                <p>Penginapan nyaman dengan fasilitas terbaik untuk istirahat Anda.</p>
+            </div>
+
+            <div class="row g-4">
+                <!-- Hotel 1 -->
+                <div class="col-md-4">
+                    <div class="hotel-card">
+                        <img src="download.jpg" class="hotel-img" alt="Hotel">
+                        <div class="hotel-rating">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                            <span class="text-muted small ms-1">(4.8)</span>
+                        </div>
+                        <h5 class="fw-bold">Grand Blue Resort</h5>
+                        <p class="text-muted small"><i class="fas fa-map-marker-alt me-1"></i> Nusa Dua, Bali</p>
+                        <div class="d-flex justify-content-between align-items-center mt-2">
+                            <div class="hotel-price">Rp 1.500.000 <span>/ malam</span></div>
+                        </div>
+                        <button class="btn btn-outline-blue mt-3">Pesan Sekarang</button>
+                    </div>
+                </div>
+
+                <!-- Hotel 2 -->
+                <div class="col-md-4">
+                    <div class="hotel-card">
+                        <img src="the peninsula paris.jpg" class="hotel-img" alt="Hotel">
+                        <div class="hotel-rating">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                            <span class="text-muted small ms-1">(5.0)</span>
+                        </div>
+                        <h5 class="fw-bold">The Peninsula Paris Hotel</h5>
+                        <p class="text-muted small"><i class="fas fa-map-marker-alt me-1"></i> Paris, Prancis</p>
+                        <div class="d-flex justify-content-between align-items-center mt-2">
+                            <div class="hotel-price">Rp 850.000 <span>/ malam</span></div>
+                        </div>
+                        <button class="btn btn-outline-blue mt-3">Pesan Sekarang</button>
+                    </div>
+                </div>
+
+                <!-- Hotel 3 -->
+                <div class="col-md-4">
+                    <div class="hotel-card">
+                        <img src="hotel central grand osaka.jpg" class="hotel-img" alt="Hotel">
+                        <div class="hotel-rating">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            <span class="text-muted small ms-1">(5.0)</span>
+                        </div>
+                        <h5 class="fw-bold"></h5>Central Grand Osaka Hotel</h5>
+                        <p class="text-muted small"><i class="fas fa-map-marker-alt me-1"></i> Tokyo, Jepang</p>
+                        <div class="d-flex justify-content-between align-items-center mt-2">
+                            <div class="hotel-price">Rp 2.100.000 <span>/ malam</span></div>
+                        </div>
+                        <button class="btn btn-outline-blue mt-3">Pesan Sekarang</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features / Why Choose Us -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="row text-center g-4">
+                <div class="col-md-4">
+                    <div class="p-4 bg-white rounded shadow-sm h-100">
+                        <i class="fas fa-shield-alt fa-3x text-primary mb-3"></i>
+                        <h4 class="fw-bold">Pembayaran Aman</h4>
+                        <p class="text-muted">Transaksi Anda dilindungi dengan sistem keamanan berstandar internasional.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-4 bg-white rounded shadow-sm h-100">
+                        <i class="fas fa-tags fa-3x text-primary mb-3"></i>
+                        <h4 class="fw-bold">Harga Terbaik</h4>
+                        <p class="text-muted">Jaminan harga termurah untuk hotel dan tiket pesawat pilihan Anda.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-4 bg-white rounded shadow-sm h-100">
+                        <i class="fas fa-headset fa-3x text-primary mb-3"></i>
+                        <h4 class="fw-bold">Layanan 24/7</h4>
+                        <p class="text-muted">Tim support kami siap membantu Anda kapan saja selama perjalanan.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <a href="#" class="footer-logo"><i class="fas fa-plane-departure me-2"></i>BlueTravel</a>
+                    <p class="text-muted">Platform traveling terlengkap untuk pemesanan tiket pesawat dan hotel. Kami membantu Anda menjelajahi dunia dengan mudah dan hemat.</p>
+                    <div class="social-links mt-3">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h6 class="fw-bold mb-3">Perusahaan</h6>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="#">Tentang Kami</a></li>
+                        <li><a href="#">Karir</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Partner</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h6 class="fw-bold mb-3">Bantuan</h6>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="#">Pusat Bantuan</a></li>
+                        <li><a href="#">Cara Pesan</a></li>
+                        <li><a href="#">Kebijakan Privasi</a></li>
+                        <li><a href="#">Syarat & Ketentuan</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h6 class="fw-bold mb-3">Berlangganan Newsletter</h6>
+                    <p class="text-muted small">Dapatkan info promo dan diskon menarik setiap minggunya.</p>
+                    <div class="input-group">
+                        <input type="email" class="form-control" placeholder="Email Anda">
+                        <button class="btn btn-primary" type="button">Kirim</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4 pt-4 border-top">
+                <div class="col-12 text-center text-muted small">
+                    &copy; 2023 BlueTravel. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Simple JS for Form Interaction -->
+    <script>
+        // Set default date to today for demo purposes
+        document.addEventListener('DOMContentLoaded', function() {
+            const dateInputs = document.querySelectorAll('input[type="date"]');
+            const today = new Date().toISOString().split('T')[0];
+            dateInputs.forEach(input => {
+                // Only set if empty to allow manual testing
+                if(!input.value) input.value = today;
+            });
+        });
+    </script>
+</body>
+</html>
